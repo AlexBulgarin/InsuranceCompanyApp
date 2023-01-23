@@ -1,0 +1,120 @@
+{
+  "insurantMap": {
+    "tony": {
+      "login": "tony",
+      "password": "qwer908"
+    },
+    "lara": {
+      "login": "lara",
+      "password": "fabian"
+    },
+    "petr": {
+      "login": "petr",
+      "password": "great"
+    },
+    "leon": {
+      "login": "leon",
+      "password": "meow123"
+    },
+    "nick": {
+      "login": "nick",
+      "password": "york645"
+    }
+  },
+  "insuranceMap": {
+    "AUTO": [
+      {
+        "insurance": {
+          "type": "AUTO",
+          "duration": 6,
+          "pricePerMonth": 8,
+          "totalPrice": 48
+        },
+        "insurant": {
+          "login": "lara",
+          "password": "fabian"
+        }
+      },
+      {
+        "insurance": {
+          "type": "AUTO",
+          "duration": 36,
+          "pricePerMonth": 8,
+          "totalPrice": 288
+        },
+        "insurant": {
+          "login": "leon",
+          "password": "meow123"
+        }
+      }
+    ],
+    "TRAVEL": [
+      {
+        "insurance": {
+          "type": "TRAVEL",
+          "duration": 3,
+          "pricePerMonth": 9,
+          "totalPrice": 27
+        },
+        "insurant": {
+          "login": "leon",
+          "password": "meow123"
+        }
+      }
+    ],
+    "LIFE": [
+      {
+        "insurance": {
+          "type": "LIFE",
+          "duration": 60,
+          "pricePerMonth": 20,
+          "totalPrice": 1200
+        },
+        "insurant": {
+          "login": "lara",
+          "password": "fabian"
+        }
+      }
+    ],
+    "HOME": [
+      {
+        "insurance": {
+          "type": "HOME",
+          "duration": 36,
+          "pricePerMonth": 12,
+          "totalPrice": 432
+        },
+        "insurant": {
+          "login": "petr",
+          "password": "great"
+        }
+      }
+    ],
+    "MEDICAL": [
+      {
+        "insurance": {
+          "type": "MEDICAL",
+          "duration": 48,
+          "pricePerMonth": 15,
+          "totalPrice": 720
+        },
+        "insurant": {
+          "login": "leon",
+          "password": "meow123"
+        }
+      },
+      {
+        "insurance": {
+          "type": "MEDICAL",
+          "duration": 48,
+          "pricePerMonth": 15,
+          "totalPrice": 720
+        },
+        "insurant": {
+          "login": "nick",
+          "password": "york645"
+        }
+      }
+    ]
+  }
+}
