@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 public class InsuranceCompanyController implements InsuranceCompanyApp {
+    private String dbFilePath;
     public static InsuranceCompany insuranceCompany = new InsuranceCompany();
     ObjectMapper objectMapper = new ObjectMapper();
     List<InsuranceInfo> autoInsuranceList = new ArrayList<>();
@@ -20,6 +21,10 @@ public class InsuranceCompanyController implements InsuranceCompanyApp {
     List<InsuranceInfo> lifeInsuranceList = new ArrayList<>();
     List<InsuranceInfo> medicalInsuranceList = new ArrayList<>();
     List<InsuranceInfo> travelInsuranceList = new ArrayList<>();
+
+    public InsuranceCompanyController(String dbFilePath) {
+        this.dbFilePath = dbFilePath;
+    }
 
     @Override
     public void addInsurant(String login, String password) {
@@ -96,7 +101,7 @@ public class InsuranceCompanyController implements InsuranceCompanyApp {
     @Override
     public boolean pushData() {
         try {
-            objectMapper.writeValue(new File("InsuranceCompany.json"), insuranceCompany);
+            objectMapper.writeValue(new File(dbFilePath), insuranceCompany);
         } catch (IOException e) {
             System.out.println("Ошибка доступа, попробуйте позднее|Connection error, try again later");
             return false;
@@ -107,7 +112,7 @@ public class InsuranceCompanyController implements InsuranceCompanyApp {
     @Override
     public void pullData() {
         try {
-            byte[] jsonData = Files.readAllBytes(Paths.get("InsuranceCompany.json"));
+            byte[] jsonData = Files.readAllBytes(Paths.get(dbFilePath));
             ObjectMapper objectMapper = new ObjectMapper();
             insuranceCompany = objectMapper.readValue(jsonData, InsuranceCompany.class);
             autoInsuranceList = insuranceCompany.getInsuranceMap().entrySet().stream().

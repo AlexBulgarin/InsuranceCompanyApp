@@ -30,7 +30,7 @@ public class InsuranceCompanyView {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        InsuranceCompanyApp insuranceCompanyApp = new InsuranceCompanyController();
+        InsuranceCompanyApp insuranceCompanyApp = new InsuranceCompanyController(resourceBundle.getString("dbfilepath"));
         init(scanner, insuranceCompanyApp);
         while (true) {
             String selectedAction = scanner.next();
