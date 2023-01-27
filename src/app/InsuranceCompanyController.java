@@ -12,8 +12,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
+import static app.InsuranceCompanyView.resourceBundle;
+
 public class InsuranceCompanyController implements InsuranceCompanyApp {
-    private String dbFilePath;
+    private final String dbFilePath;
     public static InsuranceCompany insuranceCompany = new InsuranceCompany();
     ObjectMapper objectMapper = new ObjectMapper();
     List<InsuranceInfo> autoInsuranceList = new ArrayList<>();
@@ -27,38 +29,43 @@ public class InsuranceCompanyController implements InsuranceCompanyApp {
     }
 
     @Override
-    public void addInsurant(String login, String password) {
+    public String addInsurant(String login, String password) {
         insuranceCompany.getInsurantMap().put(login, new Insurant(login, password));
         if (pushData()) {
-            System.out.println("Страхователь|Insurant " + login + " успешно зарегестрирован|successfully created");
+            return resourceBundle.getString("insurant") + " " + login + " " +
+                    resourceBundle.getString("registered");
         } else {
             insuranceCompany.getInsurantMap().remove(login);
+            return resourceBundle.getString("accessError");
         }
     }
 
     @Override
-    public void deleteInsurant(String login, String password) {
+    public String deleteInsurant(String login, String password) {
         insuranceCompany.getInsurantMap().remove(login);
         if (pushData()) {
-            System.out.println("Страхователь|Insurant " + login + " успешно удален|successfully deleted");
+            return resourceBundle.getString("insurant") + " " + login + " " +
+                    resourceBundle.getString("deleted");
         } else {
             insuranceCompany.getInsurantMap().put(login, new Insurant(login, password));
+            return resourceBundle.getString("accessError");
         }
     }
 
     @Override
-    public void updateInsurant(String login, String oldPassword, String newPassword) {
+    public String updateInsurant(String login, String oldPassword, String newPassword) {
         insuranceCompany.getInsurantMap().put(login, new Insurant(login, newPassword));
         if (pushData()) {
-            System.out.println("Пароль страхователя|Insurant password " + login +
-                    " успешно изменен|successfully changed");
+            return resourceBundle.getString("insurant") + " " + login + " " +
+                    resourceBundle.getString("updated");
         } else {
             insuranceCompany.getInsurantMap().put(login, new Insurant(login, oldPassword));
+            return resourceBundle.getString("accessError");
         }
     }
 
     @Override
-    public void getInsurance(String login, InsuranceType insuranceType, int duration) {
+    public String getInsurance(String login, InsuranceType insuranceType, int duration) {
         switch (insuranceType) {
             case MEDICAL -> {
                 medicalInsuranceList.add(new InsuranceInfo(new MedicalInsurance(duration),
@@ -86,10 +93,9 @@ public class InsuranceCompanyController implements InsuranceCompanyApp {
                 insuranceCompany.getInsuranceMap().put(insuranceType, autoInsuranceList);
             }
         }
-        if (pushData()) {
-            System.out.println(login + " оформил|got " + insuranceType + " страховку на|insurance for " + duration +
-                    " месяц(а/ов)|month");
-        }
+        return pushData() ? login + " " + resourceBundle.getString("got") + " " + insuranceType + " " +
+                resourceBundle.getString("insuranceFor") + " " + duration + " " +
+                resourceBundle.getString("month") : resourceBundle.getString("accessError");
     }
 
     @Override
@@ -103,7 +109,6 @@ public class InsuranceCompanyController implements InsuranceCompanyApp {
         try {
             objectMapper.writeValue(new File(dbFilePath), insuranceCompany);
         } catch (IOException e) {
-            System.out.println("Ошибка доступа, попробуйте позднее|Connection error, try again later");
             return false;
         }
         return true;
@@ -131,7 +136,7 @@ public class InsuranceCompanyController implements InsuranceCompanyApp {
                     filter(insuranceTypeListEntry -> insuranceTypeListEntry.getKey().equals(InsuranceType.LIFE)).
                     map(Map.Entry::getValue).findAny().get();
         } catch (IOException e) {
-            System.out.println("Ошибка доступа, попробуйте позднее|Connection error, try again later");
+            System.out.println(resourceBundle.getString("accessError"));
             e.printStackTrace();
         }
     }
@@ -141,19 +146,16 @@ public class InsuranceCompanyController implements InsuranceCompanyApp {
         switch (option) {
             case "add":
                 if (Pattern.compile("[^A-Za-z]").matcher(login).find()) {
-                    System.out.println("Введен некорректный логин. Логин должен состоять только из букв|" +
-                            "Incorrect login. Login should contain only letters");
+                    System.out.println(resourceBundle.getString("incorrectLogin"));
                     return false;
                 } else if (insuranceCompany.getInsurantMap().containsKey(login)) {
-                    System.out.println("Пользователь под таким логином уже зарегестрирован, попробуйте другой|" +
-                            "Login is already used, try another one");
+                    System.out.println(resourceBundle.getString("alreadyUsed"));
                     return false;
                 }
                 break;
             case "verification":
                 if (!insuranceCompany.getInsurantMap().containsKey(login)) {
-                    System.out.println("Пользователь с таким логином не зарегестрирован| " +
-                            "User with such login is not registered");
+                    System.out.println(resourceBundle.getString("notRegistered"));
                     return false;
                 }
                 break;
@@ -166,14 +168,13 @@ public class InsuranceCompanyController implements InsuranceCompanyApp {
         switch (option) {
             case "add":
                 if (Pattern.compile("[^A-Za-z0-9]").matcher(password).find()) {
-                    System.out.println("Введен некорректный пароль. Пароль должен состоять только из букв и цифр|" +
-                            "Incorrect password. Password should contain only letters and digits");
+                    System.out.println(resourceBundle.getString("incorrectPassword"));
                     return false;
                 }
                 break;
             case "verification":
                 if (!insuranceCompany.getInsurantMap().get(login).getPassword().equals(password)) {
-                    System.out.println("Введен неверный пароль| Wrong password");
+                    System.out.println(resourceBundle.getString("wrongPassword"));
                     return false;
                 }
                 break;

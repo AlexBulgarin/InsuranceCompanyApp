@@ -3,13 +3,13 @@ package app;
 import app.insurance.InsuranceType;
 
 public interface InsuranceCompanyApp {
-    void addInsurant(String login, String password);
+    String addInsurant(String login, String password);
 
-    void deleteInsurant(String login, String password);
+    String deleteInsurant(String login, String password);
 
-    void updateInsurant(String login, String oldPassword, String newPassword);
+    String updateInsurant(String login, String oldPassword, String newPassword);
 
-    void getInsurance(String login, InsuranceType insuranceType, int duration);
+    String getInsurance(String login, InsuranceType insuranceType, int duration);
 
     void printInfo();
 

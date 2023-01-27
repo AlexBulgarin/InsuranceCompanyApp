@@ -37,62 +37,63 @@ public class InsuranceCompanyView {
             switch (selectedAction) {
                 case "info" -> System.out.println(resourceBundle.getString("insurance.info"));
                 case "add" -> {
-                    System.out.println(resourceBundle.getString("loginrequest.info"));
+                    System.out.println(resourceBundle.getString("loginRequest"));
                     String addLogin = scanner.next();
                     if (insuranceCompanyApp.testLogin("add", addLogin)) {
-                        System.out.println(resourceBundle.getString("passwordrequest.info"));
+                        System.out.println(resourceBundle.getString("passwordRequest"));
                         String addPassword = scanner.next();
                         if (insuranceCompanyApp.testPassword("add", addLogin, addPassword)) {
-                            insuranceCompanyApp.addInsurant(addLogin, addPassword);
+                            System.out.println(insuranceCompanyApp.addInsurant(addLogin, addPassword));
                         }
                     }
                 }
                 case "delete" -> {
-                    System.out.println(resourceBundle.getString("loginrequest.info"));
+                    System.out.println(resourceBundle.getString("loginRequest"));
                     String deleteLogin = scanner.next();
                     if (insuranceCompanyApp.testLogin("verification", deleteLogin)) {
-                        System.out.println(resourceBundle.getString("passwordrequest.info"));
+                        System.out.println(resourceBundle.getString("passwordRequest"));
                         String deletePassword = scanner.next();
                         if (insuranceCompanyApp.testPassword("verification", deleteLogin, deletePassword)) {
-                            insuranceCompanyApp.deleteInsurant(deleteLogin, deletePassword);
+                            System.out.println(insuranceCompanyApp.deleteInsurant(deleteLogin, deletePassword));
                         }
                     }
                 }
                 case "update" -> {
-                    System.out.println(resourceBundle.getString("loginrequest.info"));
+                    System.out.println(resourceBundle.getString("loginRequest"));
                     String updateLogin = scanner.next();
                     if (insuranceCompanyApp.testLogin("verification", updateLogin)) {
-                        System.out.println(resourceBundle.getString("passwordoldrequest.info"));
+                        System.out.println(resourceBundle.getString("passwordOldRequest"));
                         String updateOldPassword = scanner.next();
                         if (insuranceCompanyApp.testPassword("verification", updateLogin, updateOldPassword)) {
-                            System.out.println(resourceBundle.getString("passwordnewrequest.info"));
+                            System.out.println(resourceBundle.getString("passwordNewRequest"));
                             String updateNewPassword = scanner.next();
                             if (insuranceCompanyApp.testPassword("add", updateLogin, updateNewPassword)) {
-                                insuranceCompanyApp.updateInsurant(updateLogin, updateOldPassword, updateNewPassword);
+                                System.out.println(insuranceCompanyApp.updateInsurant(updateLogin, updateOldPassword,
+                                        updateNewPassword));
                             }
                         }
                     }
                 }
                 case "getinsurance" -> {
-                    System.out.println(resourceBundle.getString("loginrequest.info"));
+                    System.out.println(resourceBundle.getString("loginRequest"));
                     String getInsuranceLogin = scanner.next();
                     if (insuranceCompanyApp.testLogin("verification", getInsuranceLogin)) {
-                        System.out.println(resourceBundle.getString("passwordrequest.info"));
+                        System.out.println(resourceBundle.getString("passwordRequest"));
                         String getInsurancePassword = scanner.next();
                         if (insuranceCompanyApp.
                                 testPassword("verification", getInsuranceLogin, getInsurancePassword)) {
-                            System.out.println(resourceBundle.getString("insurancetypeselection.info"));
-                            System.out.println(resourceBundle.getString("insurancetype.info"));
+                            System.out.println(resourceBundle.getString("insuranceTypeSelection"));
+                            System.out.println(resourceBundle.getString("insuranceType.info"));
                             String selectedInsurance = scanner.next().toUpperCase();
                             if (!selectedInsurance.equals("MEDICAL") && !selectedInsurance.equals("LIFE") &&
                                     !selectedInsurance.equals("AUTO") && !selectedInsurance.equals("TRAVEL") &&
                                     !selectedInsurance.equals("HOME")) {
-                                System.out.println(resourceBundle.getString("wronginsurance.info"));
+                                System.out.println(resourceBundle.getString("wrongInsurance"));
                             } else {
-                                System.out.println(resourceBundle.getString("insuranceduration.info"));
+                                System.out.println(resourceBundle.getString("insuranceDuration"));
                                 int duration = scanner.nextInt();
-                                insuranceCompanyApp.
-                                        getInsurance(getInsuranceLogin, InsuranceType.valueOf(selectedInsurance), duration);
+                                System.out.println(insuranceCompanyApp.getInsurance(getInsuranceLogin,
+                                        InsuranceType.valueOf(selectedInsurance), duration));
                             }
                         }
                     }
@@ -110,7 +111,7 @@ public class InsuranceCompanyView {
                     }
                     System.out.println(resourceBundle.getString("insurance.info"));
                 }
-                default -> System.out.println(resourceBundle.getString("wrongcommand.info"));
+                default -> System.out.println(resourceBundle.getString("wrongCommand"));
             }
         }
     }
