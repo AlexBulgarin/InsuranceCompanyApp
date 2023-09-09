@@ -1,1 +1,24 @@
-{"insurantMap":{"test":{"login":"test","password":"test"}},"insuranceMap":{"MEDICAL":[{"insurance":{"type":"MEDICAL","duration":20,"pricePerMonth":15,"totalPrice":300},"insurant":{"login":"Test2","password":"Test2"}}]}}
+{
+  "insurantMap": {
+    "test": {
+      "login": "test",
+      "password": "test"
+    }
+  },
+  "insuranceMap": {
+    "MEDICAL": [
+      {
+        "insurance": {
+          "type": "MEDICAL",
+          "duration": 20,
+          "pricePerMonth": 15,
+          "totalPrice": 300
+        },
+        "insurant": {
+          "login": "Test2",
+          "password": "Test2"
+        }
+      }
+    ]
+  }
+}

@@ -1,5 +1,5 @@
-package app;
-
+import app.InsuranceCompanyApp;
+import app.InsuranceCompanyController;
 import app.insurance.InsuranceType;
 import org.junit.jupiter.api.*;
 
